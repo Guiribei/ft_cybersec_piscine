@@ -13,6 +13,18 @@ test_cases = [
 		"args": ["r"],
 		"expected": (False, 1, None, "./data/")
 	},
+	{
+		"args": ["-l"],
+		"expected": (False, -1, None, "./data/")
+	},
+	{
+		"args": ["-l", "3"],
+		"expected": (False, 3, None, "./data/")
+	},
+	{
+		"args": ["-l", "a"],
+		"expected": (False, -1, None, "./data/")
+	},
 ]
 
 for i, case in enumerate(test_cases):

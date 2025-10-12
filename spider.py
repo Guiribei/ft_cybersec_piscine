@@ -6,9 +6,15 @@ def main(args):
 	url = None
 	saveDest = "./data/"
 
-	for elem in args:
-		if elem == '-r':
+	for i, arg in enumerate(args):
+		if arg == '-r':
 			isRecursive = True
+		if arg == '-l':
+			try:
+				recursionDepth = int(args[i + 1])
+			except (IndexError, ValueError):
+				recursionDepth = -1
+
 
 	return (isRecursive, recursionDepth, url, saveDest)
 
