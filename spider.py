@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 
 def main(args):
 	isRecursive = False
@@ -14,6 +15,16 @@ def main(args):
 				recursionDepth = int(args[i + 1])
 			except (IndexError, ValueError):
 				recursionDepth = -1
+		if arg == '-p':
+			try:
+				p = Path(args[i +1])
+				if p.exists() and p.is_dir():
+					saveDest = args[i + 1]
+				else:
+					raise ValueError
+			except (IndexError, ValueError):
+				saveDest = ""
+			
 
 
 	return (isRecursive, recursionDepth, url, saveDest)

@@ -25,6 +25,22 @@ test_cases = [
 		"args": ["-l", "a"],
 		"expected": (False, -1, None, "./data/")
 	},
+	{
+		"args": ["-p"],
+		"expected": (False, 1, None, "")
+	},
+	{
+		"args": ["-p", "./test/path/"],
+		"expected": (False, 1, None, "./test/path/")
+	},
+	{
+		"args": ["-p", ".//////////sdf/sd/f/sdf"],
+		"expected": (False, 1, None, "")
+	},
+	{
+		"args": ["-p", "."],
+		"expected": (False, 1, None, ".")
+	},
 ]
 
 for i, case in enumerate(test_cases):
