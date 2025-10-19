@@ -1,4 +1,5 @@
-from src.spider import parse_args, DEFAULT_DIR
+from src.Options import DEFAULT_DIR
+from src.spider import parse_args
 from tests import negative_tests, positive_tests
 
 from pathlib import Path

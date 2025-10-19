@@ -4,26 +4,19 @@ from src.exceptions import (
     MissingArgumentError,
     BadArgumentError,
 )
+from src.Options import Options
 
 import sys
 from pathlib import Path
 
 
-DEFAULT_DIR = "./data/"
-
-
-def parse_args(args):
-    # Options
-    # TODO: turn this into a dict or class idk
-    isRecursive: bool = False
-    recursionDepth: int = 1
-    saveDest: str = DEFAULT_DIR
-    url: str | None = None
+def parse_args(args) -> Options:
+    options = Options()
 
     # Get URL
     if not args:
         raise MissingUrlError("No URL provided")
-    url = args.pop()
+    options.url = args.pop()
 
     stack = args[::-1]  # Reverse the args and treat as a LIFO stack
     parsed_tokens = set()  # Set of already parsed tokens to avoid duplicates
@@ -37,12 +30,12 @@ def parse_args(args):
 
             value_str = stack.pop()
             try:
-                recursionDepth = int(value_str)
+                options.recursion_depth = int(value_str)
             except ValueError:
                 # Value exists but is not a valid integer
                 raise BadArgumentError(f"Invalid value for -l flag: {value_str!r}")
 
-            if recursionDepth <= 0:
+            if options.recursion_depth <= 0:
                 # Value is a valid integer but semantically incorrect
                 raise BadArgumentError("Recursion depth must be positive")
 
@@ -54,29 +47,29 @@ def parse_args(args):
             path = stack.pop()
             p = Path(path)
             if p.exists() and p.is_dir():
-                saveDest = path
+                options.save_dest = path
             else:
                 raise BadArgumentError("Provided path is not a valid directory")
             parsed_tokens.add("-p")
 
         elif token == "-r" and "-r" not in parsed_tokens:
-            isRecursive = True
+            options.is_recursive = True
             if "-l" not in parsed_tokens:
-                recursionDepth = 5
+                options.recursion_depth = 5
             parsed_tokens.add("-r")
 
         else:
             raise ArgumentError(f"Unknown argument: {token}")
 
-    return (isRecursive, recursionDepth, url, saveDest)
+    return options
 
 
 if __name__ == "__main__":
-    isRecursive, recursionDepth, url, saveDest = parse_args(sys.argv[1:])
+    options = parse_args(sys.argv[1:])
 
     print(f"----------------------------------")
-    print(f"Is recursive: {isRecursive}")
-    print(f"Recursion depth: {recursionDepth}")
-    print(f"URL: {url}")
-    print(f"Save destination: {saveDest}")
+    print(f"Is recursive: {options.is_recursive}")
+    print(f"Recursion depth: {options.recursion_depth}")
+    print(f"Save destination: {options.save_dest}")
+    print(f"URL: {options.url}")
     print(f"----------------------------------")

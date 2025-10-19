@@ -1,3 +1,5 @@
+from src.Options import Options
+
 from typing import List, Optional, Type
 
 
@@ -7,7 +9,7 @@ class TestCase:
         name: str,
         args: List[str],
         should_raise_exception: bool,
-        expected_result: Optional[tuple] = None,
+        expected_result: Optional[Options] = None,
         expected_exception: Optional[Type[Exception]] = None,
     ):
         self.name = name
