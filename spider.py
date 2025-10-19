@@ -16,6 +16,8 @@ def main(args):
 			if "-r" in args:
 				try:
 					recursionDepth = int(args[i + 1])
+					if recursionDepth <= 0:
+						raise ValueError
 				except (IndexError, ValueError):
 					recursionDepth = -1
 		if arg == '-p':

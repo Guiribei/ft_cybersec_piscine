@@ -111,6 +111,10 @@ test_cases = [
 		"args": ["-r", "-p", TEST_DIR_PATH, "-l", 10],
 		"expected": (True, 10, None, TEST_DIR_PATH)
 	},
+	{
+		"args": ["-r", "-l", "-3"],
+		"expected": (True, -1, None, DEFAULT_DIR)
+	},
 ]
 
 for i, case in enumerate(test_cases):
