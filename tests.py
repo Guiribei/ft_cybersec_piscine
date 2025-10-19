@@ -1,4 +1,4 @@
-from spider import parse_args
+from spider import parse_args, DEFAULT_DIR
 
 
 # Text Formatting
@@ -9,7 +9,6 @@ YELLOW_BOLD = "\033[1;33m"
 RESET = "\033[0m"
 
 # TEST SUITE
-DEFAULT_DIR = "./data/"
 TEST_DIR_PATH = "test/path"
 test_cases = [
 	{

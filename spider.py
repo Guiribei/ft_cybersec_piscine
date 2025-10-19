@@ -1,6 +1,10 @@
 import sys
 from pathlib import Path
 
+
+DEFAULT_DIR = "./data/"
+
+
 def parse_args(args):
 	# Options
 	# Todo: turn this into a dict or class idk
