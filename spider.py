@@ -88,12 +88,12 @@ def parse_args(args):
     return (isRecursive, recursionDepth, url, saveDest)
 
 
-if __name__ == '__main__':
-	isRecursive, recursionDepth, url, saveDest = parse_args(sys.argv[1:])
+if __name__ == "__main__":
+    isRecursive, recursionDepth, url, saveDest = parse_args(sys.argv[1:])
 
-	print(f"----------------------------------")
-	print(f"Is recursive: {isRecursive}")
-	print(f"Recursion depth: {recursionDepth}")
-	print(f"URL: {url}")
-	print(f"Save destination: {saveDest}")
-	print(f"----------------------------------")
+    print(f"----------------------------------")
+    print(f"Is recursive: {isRecursive}")
+    print(f"Recursion depth: {recursionDepth}")
+    print(f"URL: {url}")
+    print(f"Save destination: {saveDest}")
+    print(f"----------------------------------")
