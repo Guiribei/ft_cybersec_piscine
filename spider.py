@@ -1,7 +1,9 @@
 import sys
 from pathlib import Path
 
-def main(args):
+def parse_args(args):
+	# Options
+	# Todo: turn this into a dict or class idk
 	isRecursive = False
 	recursionDepth = -42
 	url = None
@@ -37,7 +39,7 @@ def main(args):
 
 
 if __name__ == '__main__':
-	isRecursive, recursionDepth, url, saveDest = main(sys.argv[1:])
+	isRecursive, recursionDepth, url, saveDest = parse_args(sys.argv[1:])
 
 	print(f"----------------------------------")
 	print(f"Is recursive: {isRecursive}")

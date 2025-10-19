@@ -1,4 +1,4 @@
-from spider import main
+from spider import parse_args
 
 DEFAULT_DIR = "./data/"
 TEST_DIR_PATH = "test/path"
@@ -118,7 +118,7 @@ test_cases = [
 ]
 
 for i, case in enumerate(test_cases):
-	actual = main(case["args"])
+	actual = parse_args(case["args"])
 	try:
 		assert actual == case["expected"], f"Expected {case['expected']}, got {actual}"
 		print(f"Test case {i}: OK!")
