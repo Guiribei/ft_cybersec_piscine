@@ -1,0 +1,103 @@
+from src.spider import DEFAULT_DIR
+from tests import TEST_URL, TEST_DIR_PATH
+
+positive_tests = [
+    {
+        "name": "Single URL only",
+        "args": [TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (False, 1, TEST_URL, DEFAULT_DIR),
+        "expected_exception": None,
+    },
+    {
+        "name": "Recursive with default depth",
+        "args": ["-r", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 5, TEST_URL, DEFAULT_DIR),
+        "expected_exception": None,
+    },
+    {
+        "name": "Recursive with specified depth (3)",
+        "args": ["-r", "-l", "3", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 3, TEST_URL, DEFAULT_DIR),
+        "expected_exception": None,
+    },
+    {
+        "name": "Specified depth only",
+        "args": ["-l", "3", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (False, 3, TEST_URL, DEFAULT_DIR),
+        "expected_exception": None,
+    },
+    {
+        "name": "Specified path only",
+        "args": ["-p", TEST_DIR_PATH, TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (False, 1, TEST_URL, TEST_DIR_PATH),
+        "expected_exception": None,
+    },
+    {
+        "name": "Specified path (.)",
+        "args": ["-p", ".", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (False, 1, TEST_URL, "."),
+        "expected_exception": None,
+    },
+    {
+        "name": "Specified path (..)",
+        "args": ["-p", "..", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (False, 1, TEST_URL, ".."),
+        "expected_exception": None,
+    },
+    {
+        "name": "Recursive with specified depth (6) - different arg order",
+        "args": ["-l", 6, "-r", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 6, TEST_URL, DEFAULT_DIR),
+        "expected_exception": None,
+    },
+    {
+        "name": "Recursive with specified depth (1)",
+        "args": ["-r", "-l", 1, TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 1, TEST_URL, DEFAULT_DIR),
+        "expected_exception": None,
+    },
+    {
+        "name": "Recursive with specified depth (1) - different arg order",
+        "args": ["-l", 1, "-r", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 1, TEST_URL, DEFAULT_DIR),
+        "expected_exception": None,
+    },
+    {
+        "name": "Recursive with specified path",
+        "args": ["-r", "-p", TEST_DIR_PATH, TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 5, TEST_URL, TEST_DIR_PATH),
+        "expected_exception": None,
+    },
+    {
+        "name": "Recursive with specified path - different arg order",
+        "args": ["-p", TEST_DIR_PATH, "-r", TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 5, TEST_URL, TEST_DIR_PATH),
+        "expected_exception": None,
+    },
+    {
+        "name": "Specified path and depth",
+        "args": ["-p", TEST_DIR_PATH, "-l", 10, TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (False, 10, TEST_URL, TEST_DIR_PATH),
+        "expected_exception": None,
+    },
+    {
+        "name": "All options specified",
+        "args": ["-r", "-p", TEST_DIR_PATH, "-l", 10, TEST_URL],
+        "should_raise_exception": False,
+        "expected_result": (True, 10, TEST_URL, TEST_DIR_PATH),
+        "expected_exception": None,
+    },
+]
