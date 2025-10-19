@@ -1,4 +1,4 @@
-from src.spider import (
+from src.exceptions import (
     ArgumentError,
     MissingArgumentError,
     MissingUrlError,
