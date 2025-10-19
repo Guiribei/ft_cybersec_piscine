@@ -17,19 +17,19 @@ def run_positive_tests(test_cases):
     failed_tests_count = 0
     for i, case in enumerate(test_cases, 1):
         try:
-            actual = parse_args(case["args"])
+            actual = parse_args(case.args)
             assert (
-                actual == case["expected_result"]
-            ), f"Expected {case['expected_result']}, got {actual}"
-            print(f"Test {i} - {case['name']}: {GREEN_BOLD}OK!{RESET}")
+                actual == case.expected_result
+            ), f"Expected {case.expected_result}, got {actual}"
+            print(f"Test {i} - {case.name}: {GREEN_BOLD}OK!{RESET}")
         except AssertionError as e:
             print(
-                f"Test {i} - {case['name']}: {BOLD}{RED}NOK!{RESET} {type(e).__name__}: {e}"
+                f"Test {i} - {case.name}: {BOLD}{RED}NOK!{RESET} {type(e).__name__}: {e}"
             )
             failed_tests_count += 1
         except Exception as e:
             print(
-                f"Test {i} - {case['name']}: {BOLD}{RED}NOK!{RESET} Unexpected exception: {e}"
+                f"Test {i} - {case.name}: {BOLD}{RED}NOK!{RESET} Unexpected exception: {e}"
             )
             failed_tests_count += 1
 
@@ -38,16 +38,16 @@ def run_positive_tests(test_cases):
 
 def run_negative_tests(test_cases):
     failed_tests_count = 0
-    for i, test in enumerate(test_cases, 1):
+    for i, case in enumerate(test_cases, 1):
         try:
-            parse_args(test["args"])
-            print(f"Test {i} {test['name']}: {BOLD}{RED}NOK!{RESET} Expected exception")
+            parse_args(case.args)
+            print(f"Test {i} {case.name}: {BOLD}{RED}NOK!{RESET} Expected exception")
             failed_tests_count += 1
-        except test["expected_exception"]:
-            print(f"Test {i} {test['name']}: {GREEN_BOLD}OK!{RESET}")
+        except case.expected_exception:
+            print(f"Test {i} {case.name}: {GREEN_BOLD}OK!{RESET}")
         except Exception as e:
             print(
-                f"Test {i} {test['name']}: {BOLD}{RED}NOK!{RESET} Unexpected exception: {type(e).__name__} (`{e}`); Expected: {test['expected_exception'].__name__}"
+                f"Test {i} {case.name}: {BOLD}{RED}NOK!{RESET} Unexpected exception: {type(e).__name__} (`{e}`); Expected: {case.expected_exception.__name__}"
             )
             failed_tests_count += 1
     return failed_tests_count
