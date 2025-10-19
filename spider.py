@@ -3,7 +3,7 @@ from pathlib import Path
 
 def main(args):
 	isRecursive = False
-	recursionDepth = 1
+	recursionDepth = -42
 	url = None
 	saveDest = "./data/"
 
@@ -27,8 +27,9 @@ def main(args):
 					raise ValueError
 			except (IndexError, ValueError):
 				saveDest = ""
-			
 
+	if recursionDepth == -42:
+		recursionDepth = 1
 
 	return (isRecursive, recursionDepth, url, saveDest)
 
@@ -36,7 +37,9 @@ def main(args):
 if __name__ == '__main__':
 	isRecursive, recursionDepth, url, saveDest = main(sys.argv[1:])
 
+	print(f"----------------------------------")
 	print(f"Is recursive: {isRecursive}")
 	print(f"Recursion depth: {recursionDepth}")
 	print(f"URL: {url}")
 	print(f"Save destination: {saveDest}")
+	print(f"----------------------------------")
