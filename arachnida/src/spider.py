@@ -61,7 +61,12 @@ def parse_args(args) -> Options:
 
 
 if __name__ == "__main__":
-    options = parse_args(sys.argv[1:])
+    try:
+        options = parse_args(sys.argv[1:])
+    except (ArgumentError, MissingUrlError, MissingArgumentError, BadArgumentError) as e:
+        print(f"Error: {e} ❌")
+        print("Usage: ./spider [-rlp] URL")
+        sys.exit(1)  # exit gracefully with error code
 
     print(f"----------------------------------")
     print(f"Is recursive: {options.is_recursive}")
