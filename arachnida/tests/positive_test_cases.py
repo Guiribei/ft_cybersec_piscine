@@ -31,6 +31,24 @@ positive_tests = [
         expected_exception=None,
     ),
     TestCase(
+        name="Recursive with missing specified depth - different arg order",
+        args=["-l", "-r", TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=True, recursion_depth=5, save_dest=DEFAULT_DIR, url=TEST_URL
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
+        name="Specified depth only - missing argument",
+        args=["-l", TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=False, recursion_depth=5, save_dest=DEFAULT_DIR, url=TEST_URL
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
         name="Specified depth only",
         args=["-l", "3", TEST_URL],
         should_raise_exception=False,
@@ -67,6 +85,15 @@ positive_tests = [
         expected_exception=None,
     ),
     TestCase(
+        name="Recursive with missing specified depth",
+        args=["-r", "-l", TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=True, recursion_depth=5, save_dest=DEFAULT_DIR, url=TEST_URL
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
         name="Recursive with specified depth (6) - different arg order",
         args=["-l", 6, "-r", TEST_URL],
         should_raise_exception=False,
@@ -90,6 +117,24 @@ positive_tests = [
         should_raise_exception=False,
         expected_result=Options(
             is_recursive=True, recursion_depth=1, save_dest=DEFAULT_DIR, url=TEST_URL
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
+        name="Recursive with depth arg - depth not specified",
+        args=["-r", "-l", TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=True, recursion_depth=5, save_dest=DEFAULT_DIR, url=TEST_URL
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
+        name="Recursive with depth arg - depth not specified, different arg order",
+        args=["-l", "-r", TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=True, recursion_depth=5, save_dest=DEFAULT_DIR, url=TEST_URL
         ),
         expected_exception=None,
     ),
@@ -124,7 +169,40 @@ positive_tests = [
         expected_exception=None,
     ),
     TestCase(
+        name="Specified path and depth - different arg order",
+        args=["-l", 10, "-p", TEST_DIR_PATH, TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=False,
+            recursion_depth=10,
+            save_dest=TEST_DIR_PATH,
+            url=TEST_URL,
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
+        name="Specified path and depth - missing depth argument",
+        args=["-p", TEST_DIR_PATH, "-l", TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=False,
+            recursion_depth=5,
+            save_dest=TEST_DIR_PATH,
+            url=TEST_URL,
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
         name="All options specified",
+        args=["-r", "-l", 10, "-p", TEST_DIR_PATH, TEST_URL],
+        should_raise_exception=False,
+        expected_result=Options(
+            is_recursive=True, recursion_depth=10, save_dest=TEST_DIR_PATH, url=TEST_URL
+        ),
+        expected_exception=None,
+    ),
+    TestCase(
+        name="All options specified - different arg order",
         args=["-r", "-p", TEST_DIR_PATH, "-l", 10, TEST_URL],
         should_raise_exception=False,
         expected_result=Options(
