@@ -1,9 +1,9 @@
 all:
-	@echo "Running project with default settings..."
-	@python -m src.spider http://google.com
+	@chmod +x spider
+	@./spider
 
 test:
 	@echo "Running tests..."
 	@python -m tests.test_runner
 
-.PHONY: test
+.PHONY: test all
