@@ -25,21 +25,17 @@ def parse_args(args) -> Options:
         token = stack.pop()
         if token == "-l" and "-l" not in parsed_tokens:
             if not stack:
-                # No value provided after the flag
-                raise MissingArgumentError("Missing value after -l flag")
-
-            value_str = stack.pop()
-            try:
-                options.recursion_depth = int(value_str)
-            except ValueError:
-                # Value exists but is not a valid integer
-                raise BadArgumentError(f"Invalid value for -l flag: {value_str!r}")
-
-            if options.recursion_depth <= 0:
-                # Value is a valid integer but semantically incorrect
-                raise BadArgumentError("Recursion depth must be positive")
-
-            parsed_tokens.add("-l")
+                options.recursion_depth = 5
+            else:
+                try:
+                    options.recursion_depth = int(stack[-1])
+                    if options.recursion_depth <= 0:
+                        # Value is a valid integer but semantically incorrect
+                        raise BadArgumentError("Recursion depth must be positive")
+                    stack.pop()
+                except ValueError:
+                    options.recursion_depth = 5
+                parsed_tokens.add("-l")
 
         elif token == "-p" and "-p" not in parsed_tokens:
             if not stack:
