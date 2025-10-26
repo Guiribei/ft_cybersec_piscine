@@ -42,7 +42,7 @@ def run_negative_tests(test_cases):
     for i, case in enumerate(test_cases, 1):
         try:
             parse_args(case.args)
-            print(f"Test {i} {case.name}: {BOLD}{RED}NOK!{RESET} Expected exception")
+            print(f"Test {i} {case.name}: {BOLD}{RED}NOK!{RESET} Expected exception: {case.expected_exception.__name__} but got None")
             failed_tests_count += 1
         except case.expected_exception:
             print(f"Test {i} {case.name}: {GREEN_BOLD}OK!{RESET}")
