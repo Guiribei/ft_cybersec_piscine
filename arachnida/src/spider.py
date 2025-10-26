@@ -6,8 +6,9 @@ from src.exceptions import (
 )
 from src.Options import Options
 
-import sys
 from pathlib import Path
+import requests
+import sys
 
 
 def parse_args(args) -> Options:
@@ -60,17 +61,34 @@ def parse_args(args) -> Options:
     return options
 
 
-if __name__ == "__main__":
-    try:
-        options = parse_args(sys.argv[1:])
-    except (ArgumentError, MissingUrlError, MissingArgumentError, BadArgumentError) as e:
-        print(f"Error: {e} ❌")
-        print("Usage: ./spider [-rlp] URL")
-        sys.exit(1)  # exit gracefully with error code
-
+def print_options(options: Options):
     print(f"----------------------------------")
     print(f"Is recursive: {options.is_recursive}")
     print(f"Recursion depth: {options.recursion_depth}")
     print(f"Save destination: {options.save_dest}")
     print(f"URL: {options.url}")
     print(f"----------------------------------")
+
+
+if __name__ == "__main__":
+    try:
+        options = parse_args(sys.argv[1:])
+    except (
+        ArgumentError,
+        MissingUrlError,
+        MissingArgumentError,
+        BadArgumentError,
+    ) as e:
+        print(f"Error: {e} ❌")
+        print("Usage: ./spider [-rlp] URL")
+        sys.exit(1)  # exit gracefully with error code
+
+    print_options(options)
+
+    try:
+        request = requests.get(options.url)
+    except requests.exceptions.RequestException as e:
+        print(f"Error making request: {e} ❌")
+        sys.exit(1)
+
+    print(request.status_code)
