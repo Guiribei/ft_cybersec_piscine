@@ -158,11 +158,11 @@ positive_tests = [
     ),
     TestCase(
         name="Specified path and depth",
-        args=["-p", TEST_DIR_PATH, "-l", 10, TEST_URL],
+        args=["-p", TEST_DIR_PATH, "-l", 6, TEST_URL],
         should_raise_exception=False,
         expected_result=Options(
             is_recursive=False,
-            recursion_depth=10,
+            recursion_depth=6,
             save_dest=TEST_DIR_PATH,
             url=TEST_URL,
         ),
@@ -170,11 +170,11 @@ positive_tests = [
     ),
     TestCase(
         name="Specified path and depth - different arg order",
-        args=["-l", 10, "-p", TEST_DIR_PATH, TEST_URL],
+        args=["-l", 6, "-p", TEST_DIR_PATH, TEST_URL],
         should_raise_exception=False,
         expected_result=Options(
             is_recursive=False,
-            recursion_depth=10,
+            recursion_depth=6,
             save_dest=TEST_DIR_PATH,
             url=TEST_URL,
         ),
@@ -194,19 +194,19 @@ positive_tests = [
     ),
     TestCase(
         name="All options specified",
-        args=["-r", "-l", 10, "-p", TEST_DIR_PATH, TEST_URL],
+        args=["-r", "-l", 6, "-p", TEST_DIR_PATH, TEST_URL],
         should_raise_exception=False,
         expected_result=Options(
-            is_recursive=True, recursion_depth=10, save_dest=TEST_DIR_PATH, url=TEST_URL
+            is_recursive=True, recursion_depth=6, save_dest=TEST_DIR_PATH, url=TEST_URL
         ),
         expected_exception=None,
     ),
     TestCase(
         name="All options specified - different arg order",
-        args=["-r", "-p", TEST_DIR_PATH, "-l", 10, TEST_URL],
+        args=["-r", "-p", TEST_DIR_PATH, "-l", 6, TEST_URL],
         should_raise_exception=False,
         expected_result=Options(
-            is_recursive=True, recursion_depth=10, save_dest=TEST_DIR_PATH, url=TEST_URL
+            is_recursive=True, recursion_depth=6, save_dest=TEST_DIR_PATH, url=TEST_URL
         ),
         expected_exception=None,
     ),

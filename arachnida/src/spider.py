@@ -29,9 +29,9 @@ def parse_args(args) -> Options:
             else:
                 try:
                     options.recursion_depth = int(stack[-1])
-                    if options.recursion_depth <= 0:
+                    if options.recursion_depth <= 0 or options.recursion_depth > 6:
                         # Value is a valid integer but semantically incorrect
-                        raise BadArgumentError("Recursion depth must be positive")
+                        raise BadArgumentError("Recursion depth must be between 1 and 6")
                     stack.pop()
                 except ValueError:
                     options.recursion_depth = 5

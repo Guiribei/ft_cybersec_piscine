@@ -98,4 +98,11 @@ negative_tests = [
         expected_result=None,
         expected_exception=BadArgumentError,
     ),
+    TestCase(
+        name="Recursive with specified depth greater than six",
+        args=["-r", "-l", "7", TEST_URL],
+        should_raise_exception=True,
+        expected_result=None,
+        expected_exception=BadArgumentError,
+    ),
 ]
