@@ -9,6 +9,9 @@ from src.Options import Options
 from pathlib import Path
 import requests
 import sys
+import os
+from urllib.parse import urljoin, urlparse
+from bs4 import BeautifulSoup
 
 
 def parse_args(args) -> Options:
@@ -86,9 +89,46 @@ if __name__ == "__main__":
     print_options(options)
 
     try:
-        request = requests.get(options.url)
+        response = requests.get(options.url)
+        response.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(f"Error making request: {e} ❌")
         sys.exit(1)
 
-    print(request.status_code)
+    # ✅ Parse HTML
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # ✅ Extract all <img> tags
+    img_tags = soup.find_all("img")
+
+    # ✅ Create folder to save images
+    os.makedirs(options.save_dest, exist_ok=True)
+
+    # ✅ Allowed extensions
+    valid_exts = (".jpg", ".jpeg", ".png", ".gif", ".bmp")
+
+    for img in img_tags:
+        src = img.get("src")
+        if not src:
+            continue
+
+        # Handle relative URLs
+        img_url = urljoin(options.url, src)
+
+        # Skip if not one of the allowed extensions
+        if not img_url.lower().endswith(valid_exts):
+            continue
+
+        # Extract filename
+        filename = os.path.basename(urlparse(img_url).path)
+        filepath = os.path.join(options.save_dest, filename)
+
+        try:
+            img_data = requests.get(img_url).content
+            with open(filepath, "wb") as f:
+                f.write(img_data)
+            print(f"Downloaded: {filename} ✅")
+        except requests.exceptions.RequestException as e:
+            print(f"Failed to download {img_url}: {e} ❌")
+
+    print("All done! 🎉")

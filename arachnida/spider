@@ -1,4 +1,4 @@
 #! /bin/bash
 
 echo "Running the spider module..."
-python -m src.spider -l 4 -p tests/path "https://www.scrappager.tech"
+python -m src.spider -l 4 "https://github.com/rodsmade"
